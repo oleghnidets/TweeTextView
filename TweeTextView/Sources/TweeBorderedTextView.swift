@@ -20,7 +20,7 @@ public struct BorderOffset {
 open class TweeBorderedTextView: TweePlaceholderTextView {
 
     /// Specifies offset for the bottom line based on default border coordinates.
-    public var borderOffset = BorderOffset(x: 0, y: 0)
+	public var borderOffset = BorderOffset(x: .zero, y: .zero)
 
     /// Color of bottom line.
     @IBInspectable public var lineColor: UIColor {
@@ -38,7 +38,7 @@ open class TweeBorderedTextView: TweePlaceholderTextView {
     /// Width of bottom line.
     @IBInspectable public var lineWidth: CGFloat {
         get {
-            return line.layer.lineWidth
+			line.layer.lineWidth
         } set {
             line.layer.lineWidth = newValue
         }
@@ -72,18 +72,18 @@ open class TweeBorderedTextView: TweePlaceholderTextView {
     }
 
     internal func calculateLine(_ line: Line) {
-        // Path
+        // - Path
         line.path = UIBezierPath()
 
         let yOffset = frame.height - (line.layer.lineWidth * 0.5) + borderOffset.y
 
-        let startPoint = CGPoint(x: 0, y: yOffset)
+		let startPoint = CGPoint(x: .zero, y: yOffset)
         line.path.move(to: startPoint)
 
         let endPoint = CGPoint(x: frame.width + borderOffset.x, y: yOffset)
         line.path.addLine(to: endPoint)
 
-        // Layer
+        // - Layer
         let interfaceDirection = UIView.userInterfaceLayoutDirection(for: semanticContentAttribute)
         let path = interfaceDirection == .rightToLeft ? line.path.reversing() : line.path
 
